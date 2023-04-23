@@ -1,0 +1,126 @@
+{% extends 'moderator/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="fw-semibold">Xususiyatlari</h5>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="col">Muallif: </th>
+                                <td scope="col">{{object.last_name}} {{object.first_name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"> Tasdiqlangan sana: </th>
+                                <td>{{object.approved_date_time}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Jurnal: </th>
+                                <td>{{object.journal}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Rukn: </th>
+                                <td>
+                                    <p>{{object.column}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Tasdiqladi: </th>
+                                <td>
+                                    <a href="{% url 'moderator_detail' object.confirmed.pk %}">{{object.confirmed}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Holati: </th>
+                                <td>
+                                    {% if object.is_active == True %}
+                                    Aktiv
+                                    {% else %}
+                                    Arxiv
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="hstack gap-2">
+                    <a href="{{ object.file.url }}" class="btn btn-soft-primary" download="true">Faylni yuklab olish</a>
+                    <a href="{{ object.file.url }}" class="btn btn-soft-success" target="_blank">Faylni ko'rib
+                        chiqish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9">
+        <div class="card">
+            <div class="card-body border-bottom">
+                <div class="d-flex">
+                    <div class="flex-grow-1 ms-3">
+                        <h5 class="fw-semibold">{{object.title}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="fw-semibold mb-3">Qisqa ma'lumot: </h5>
+                <p class="text-muted">
+                    {{object.description}}
+                </p>
+                <div class="mt-4">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item mt-1">
+
+                        </li>
+                        <li class="list-inline-item mt-1">
+                            <a href="{% url 'article_archive' object.pk %}" class="btn btn-outline-primary btn-hover"><i
+                                    class="uil uil-facebook-f"></i>
+                                {% if object.is_active == True %}
+                                Arxivga olish
+                                {% else %}
+                                Arxivdan chiqarish
+                                {% endif %}
+                            </a>
+                        </li>
+                        <li class="list-inline-item mt-1">
+                            <div>
+                                <button type="button" class="btn btn-danger waves-effect waves-light"
+                                    data-bs-toggle="modal" data-bs-target="#myModal">Maqolani o'chirish</button>
+                                <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="myModalLabel">Rostan ham ushbu maqolani
+                                                    o'chirmoqchimisiz ?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Agarda ushbu maqola o'chirilsa, uni qayta tiklab bo'lmaydi. Fikringiz qat'iy bo'lsa o'chirish tugmasini bosing
+                                            </div>
+                                            <form class="modal-footer" method="POST"
+                                                action="{% url 'article_delete' object.pk %}">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                    class="btn btn-danger waves-effect">O'chirish</button>
+                                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                    data-bs-dismiss="modal">Ortga qaytish</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-inline-item mt-1">
+                            <a href="{% url 'article_change' object.pk %}" class="btn btn-outline-success btn-hover"><i
+                                    class="uil uil-linkedin-alt"></i> O'zgartirish </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'moderator/base.html' %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4"> Shaxsiy ma'lumotlarni yangilash oynasi </h4>
+                <form class="row" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                    <input type="hidden" name="data_name" value="other">
+                    <div class="col-md-6">
+                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Ismingizni kiriting </label>
+                        <div class="col-sm-9">
+                          <input name="first_name" type="text" class="form-control" id="horizontal-firstname-input" placeholder="" required value="{{user.first_name}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="horizontal-password-input" class="col-sm-3 col-form-label">Familyangizni kiriting</label>
+                        <div class="col-sm-9">
+                          <input name="last_name" type="text" class="form-control" id="horizontal-last_name-input" placeholder="" required value="{{user.last_name}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="horizontal-email-input" class="col-sm-3 col-form-label">E-mailingizni kiriting</label>
+                        <div class="col-sm-9">
+                            <input name="email" type="email" class="form-control" id="horizontal-email-input" placeholder="" required value="{{user.email}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="horizontal-username-input" class="col-sm-3 col-form-label">Taxallusingizni kiriting </label>
+                        <div class="col-sm-9">
+                          <input name="username" type="text" class="form-control" id="horizontal-username-input" placeholder="" required value="{{user.username}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="horizontal-image-input" class="col-sm-3 col-form-label" style="width: 100%;"> Profil rasmi (jpeg, png)  </label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control" id="inputGroupFile02" accept="image/png, image/jpeg" name="image">
+                        </div>
+                    </div>
+                    <div class="col-10 form-check form-switch form-switch-md" style="padding-top: 20px;left: 10px;">
+                        <input class="form-check-input" name="dark_mode" type="checkbox" id="SwitchCheckSizemd" {% if user.dark_mode == True %} checked {% endif %}>
+                        <label class="form-check-label" for="SwitchCheckSizemd"> Qora ekran rejimi </label>
+                    </div>
+                    <div class="col-12">
+                        <div class="mt-5">
+                            <button type="submit" class="btn btn-primary w-md">Yangilash</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4"> Parolni o'zgartirish </h4>
+
+                <form class="row" method="POST"> {% csrf_token %}
+                    <input type="hidden" name="data_name" value="password">
+                    <div class="col-12">
+                        <label for="old_password" class="col-sm-3 col-form-label"> Eski parolni kiriting </label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="old_password" id="old_password" placeholder="" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="new_password" class="col-sm-3 col-form-label"> Yangi parolni kiriting </label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="new_password" id="new_password" placeholder="" required> 
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="new_password_again" class="col-sm-3 col-form-label"> Parolni tasdiqlang </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="new_password_again" id="new_password_again" placeholder="" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mt-5">
+                            <button type="submit" class="btn btn-primary w-md">Yangilash</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

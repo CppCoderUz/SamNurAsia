@@ -1,0 +1,35 @@
+{% extends 'moderator/base.html' %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4"> Yangi admin qo'shish oynasi </h4>
+                <form class="row" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                    <input type="hidden" name="data_name" value="other">
+                    {% for i in form %}
+                    <div class="col-md-6">
+                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label"> {{i.label}} </label>
+                        <div class="col-sm-9">{{i}}</div>
+                    </div>
+                    {% endfor %}
+                    <div class="col-md-6">
+                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label"> Vazifasi </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="role" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mt-5">
+                            <button type="submit" class="btn btn-primary w-md">Yangilash</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

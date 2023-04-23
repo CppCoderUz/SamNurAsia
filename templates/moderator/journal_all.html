@@ -1,0 +1,59 @@
+{% extends 'moderator/base.html' %}
+
+{% load static %}
+
+{% block head_static %}
+<link href="{% static 'skote/assets/libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_static %}
+    <script src="{% static 'skote/assets/libs/admin-resources/rwd-table/rwd-table.min.js' %}"></script>
+    <script src="{% static 'skote/assets/js/pages/table-responsive.init.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"> Jurnallar ro'yxati </h4>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th> Jurnal nomi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %} 
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'journal_update' i.pk %}">
+                                                {{i.name}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div> 
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card card-body">
+            <h4 class="card-title"> Yangi jurnal qo'shish </h4>
+            <a href="{% url 'journal_create' %}" class="btn btn-primary waves-effect waves-light"> Jurnal yaratish </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

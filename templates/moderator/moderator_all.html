@@ -1,0 +1,57 @@
+{% extends 'moderator/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" style="width: 70px;">#</th>
+                                <th scope="col">Ism / familya</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Vazifasi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            <tr>
+                                <td>
+                                    <div class="avatar-xs">
+                                        <span class="avatar-title rounded-circle">
+                                            <img src="{% if i.user.image %}{{i.user.image.url}}{% else %}{% static 'skote/assets/images/users/avatar_default.png' %}{% endif %}" alt="" class="rounded-circle" height="40">
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="{% url 'moderator_detail' i.pk %}">{{i.user.last_name}} {{i.user.first_name}}</a>
+                                </td>
+                                <td>{{i.user.email}}</td>
+                                <td>{{i.role}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if object.is_created == True %}
+<div class="row">
+    <div class="col-lg-4 ">
+        <div class="card card-body text-center">
+            <h4 class="card-title">Yangi admin qo'shish</h4>
+            <p class="card-text">
+                Siz yangi admin qo'shish orqali vazifalarni taqsimlash imkoniga ega bo'lasiz.  
+            </p>
+            <a href="{% url 'moderator_add' %}" class="btn btn-primary waves-effect waves-light">Yangi admin qo'shish</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

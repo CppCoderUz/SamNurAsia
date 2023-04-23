@@ -1,0 +1,68 @@
+{% extends 'moderator/base.html' %}
+
+{% load static %}
+
+{% block head_static %}
+<link href="{% static 'skote/assets/libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_static %}
+    <script src="{% static 'skote/assets/libs/admin-resources/rwd-table/rwd-table.min.js' %}"></script>
+    <script src="{% static 'skote/assets/js/pages/table-responsive.init.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"> Maqolalar ro'yxati </h4>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Post nomi</th>
+                                <th data-priority="1"> Jurnal </th>
+                                <th data-priority="2"> Rukn </th>
+                                <th data-priority="3"> Kiritilgan sana </th>
+                                <th data-priority="4"> Maqola muallifi ismi </th>
+                                <th data-priority="5"> Maqola muallifi familyasi</th>
+                                <th data-priority="6"> Tasdiqladi </th>
+                                <th data-priority="7"> Fayl </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %} 
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'article_read' i.pk %}">{{ i.title }} </a>
+                                        </td>
+                                        <td> {{i.journal}} </td>
+                                        <td> {{i.column}} </td>
+                                        <td> {{i.approved_date_time}} </td>
+                                        <td> {{i.first_name}} </td>
+                                        <td> {{i.last_name}} </td>
+                                        <td> {{i.confirmed}} </td>
+                                        <td> 
+                                            <a href="{{i.file.url}}" download="true">
+                                                <i class="bx bx-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> 
+</div> 
+{% endblock %}

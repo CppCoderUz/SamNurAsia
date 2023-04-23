@@ -1,0 +1,117 @@
+{% extends 'moderator/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card overflow-hidden">
+            <div class="bg-primary bg-soft">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-3">
+                            <h5 class="text-primary"> </h5><p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="avatar-md profile-user-wid mb-4">
+                            <img src="{% if object.user.image %}{{object.user.image.url}}{% else %}{% static 'skote/assets/images/users/avatar_default.png' %}{% endif %}" class="img-thumbnail rounded-circle rounded" >
+                        </div>
+                        <h5 class="font-size-15 text-truncate"> {{ object.user.last_name }} {{ object.user.first_name }} </h5>
+                        <p class="text-muted mb-0 text-truncate"> {{ object.role }} </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="pt-4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="font-size-15">{{len_data}}</h5>
+                                    <p class="text-muted mb-0"> Tekshirgan arizalari </p>
+                                </div>
+                            </div>
+                            {% if object.user.pk == user.pk %}
+                            <div class="mt-4">
+                                <a href="{% url 'profile_update' %}"
+                                    class="btn btn-primary waves-effect waves-light btn-sm"> Hisobni yangilash <i
+                                        class="mdi mdi-arrow-right ms-1"></i></a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4"> Shaxsiy ma'lumotlar </h4>
+                <div class="table-responsive">
+                    <table class="table table-nowrap mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Ismi :</th>
+                                <td> {{ object.user.first_name }} </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Familyasi :</th>
+                                <td> {{ object.user.last_name }} </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail manzili :</th>
+                                <td> {{ object.user.email }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Tekshirilgan arizalari</h4>
+                <div class="table-responsive">
+                    <table class="table table-nowrap table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ariza sarlavhasi</th>
+                                <th scope="col">Qabul qilingan sana</th>
+                                <th scope="col">Ariza holati</th>
+                                <th scope="col">Ariza</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data_filter %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{i.title}}</td>
+                                <td>{{i.date_time}}</td>
+                                <td>
+                                    {% if i.status == 'ok' %}
+                                    <p class="text-success">Tasdiqlangan</p>
+                                    {% elif i.status == 'warning' %}
+                                    <p class="text-warning">Qayta ko'rib chiqishga yuborildi</p>
+                                    {% elif i.status == 'error' %}
+                                    <p class="text-danger">Maqullanmadi</p>
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'petition_detail' i.pk %}" class="btn btn-primary">
+                                        Ko'rish
+                                    </a>
+                                </td>
+                            </tr>  
+                            {% endfor %}                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

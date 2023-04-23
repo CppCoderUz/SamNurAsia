@@ -1,0 +1,105 @@
+{% extends 'moderator/base.html' %}
+
+
+{% block content %}
+<div class="row">
+
+    <div class="col-lg-4 ">
+        <div class="card card-body text-center">
+            <h4 class="card-title"> Sayt adminlari </h4>
+            <p class="card-text">
+                {{sums.0}} - ta
+            </p>
+            <a href="{% url 'moderator_all' %}" class="btn btn-primary waves-effect waves-light">Barchasini ko'rish</a>
+        </div>
+    </div>
+    <div class="col-lg-4 ">
+        <div class="card card-body text-center">
+            <h4 class="card-title"> Maqolalar </h4>
+            <p class="card-text">
+                {{sums.1}} - ta
+            </p>
+            <a href="{% url 'all_article' %}" class="btn btn-primary waves-effect waves-light">Barchasini ko'rish</a>
+        </div>
+    </div>
+    <div class="col-lg-4 ">
+        <div class="card card-body text-center">
+            <h4 class="card-title"> Postlar </h4>
+            <p class="card-text">
+                {{sums.2}} - ta
+            </p>
+            <a href="{% url 'all_posts' %}" class="btn btn-primary waves-effect waves-light">Barchasini ko'rish</a>
+        </div>
+    </div>
+    <div class="col-lg-4 ">
+        <div class="card card-body text-center">
+            <h4 class="card-title"> Jurnallar </h4>
+            <p class="card-text">
+                {{sums.3}} - ta
+            </p>
+            <a href="{% url 'journal_all' %}" class="btn btn-primary waves-effect waves-light">Barchasini ko'rish</a>
+        </div>
+    </div>
+    <div class="col-lg-4 ">
+        <div class="card card-body text-center">
+            <h4 class="card-title"> Maqola ruknlari </h4>
+            <p class="card-text">
+                {{sums.4}} - ta
+            </p>
+            <a href="{% url 'article_col_all' %}" class="btn btn-primary waves-effect waves-light">Barchasini ko'rish</a>
+        </div>
+    </div>
+    <div class="col-lg-4 ">
+        <div class="card card-body text-center">
+            <h4 class="card-title"> Arizalar </h4>
+            <p class="card-text">
+                {{sums.5}} - ta
+            </p>
+            <a href="{% url 'petition_all' %}" class="btn btn-primary waves-effect waves-light">Barchasini ko'rish</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title" style="margin-top: 10px;">
+                    Ko'rib chiqilmagan arizalar 
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" style="width: 70px;">#</th>
+                                <th scope="col">Sarlavfa</th>
+                                <th scope="col">Ism</th>
+                                <th scope="col">Familya</th>
+                                <th scope="col">email</th>
+                                <th scope="col">Batafsil ko'rish</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{i.title}}</td>
+                                    <td>{{i.first_name}}</td>
+                                    <td>{{i.last_name}}</td>
+                                    <td>{{i.email}}</td>
+                                    <td>
+                                        <a href="{% url 'petition_detail' i.pk %}" class="text-primary">
+                                            Ko'rib chiqish
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

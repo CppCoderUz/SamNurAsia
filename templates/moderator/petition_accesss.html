@@ -1,0 +1,106 @@
+{% extends 'moderator/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-shrink-0 me-4">
+                        <img src="{% static 'image/petition.jpg' %}" width="100px">
+                    </div>
+
+                    <div class="flex-grow-1 overflow-hidden">
+                        <h5 class="text-truncate font-size-15"> Ariza haqida batafsil </h5>
+                        <p class="text-muted">{{object.title}}</p>
+                    </div>
+                </div>
+
+                <h5 class="font-size-15 mt-4"> Ariza matni: </h5>
+
+                <p class="text-muted">
+                    {{ object.description }}
+                </p>
+                <br>
+                <div class="text-muted mt-4">
+                    <p><i class="mdi mdi-chevron-right text-primary me-1"></i> <strong>Ism: </strong> {{object.first_name}} </p>
+                    <p><i class="mdi mdi-chevron-right text-primary me-1"></i> <strong>Familya: </strong> {{object.last_name}}</p>
+                    <p><i class="mdi mdi-chevron-right text-primary me-1"></i> <strong>E-mail: </strong> {{object.email}}</p>
+                </div>
+                
+                <div class="row task-dates">
+                    <div class="col-sm-4 col-6">
+                        <div class="mt-4">
+                            <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i> Yuborilgan sana </h5>
+                            <p class="text-muted mb-0">{{object.date_time}}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-6">
+                        <div class="mt-4">
+                            <h5 class="font-size-14"><i class="bx bxs-file-pdf me-1 text-primary"></i> Fayl </h5>
+                            <p class="text-muted mb-0"> 
+                                <a href="{{object.file.url}}" class="text-primary" download="true">
+                                    Yuklab olish
+                                </a>  
+                                <br>
+                                <a href="{{object.file.url}}" class="text-primary" target="_blank">
+                                    Ko'rish
+                                </a>    
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-6">
+                        <div class="mt-4">
+                            <h5 class="font-size-14"><i class="bx bxs-dashboard me-1 text-primary"></i> Holati </h5>
+                            <p class="text-muted mb-0">
+                                {% if object.status == 'not' %}
+                                   <p class="text-primary"> Ko'rib chiqilmadi</p> 
+                                {% elif object.status == 'ok' %}
+                                    <p class="text-success">Tasdiqlangan</p>
+                                {% elif object.status == 'warning' %}
+                                    <p class="text-warning">Qayta ko'rib chiqishga yuborildi</p>
+                                {% elif object.status == 'error' %}
+                                    <p class="text-danger">Maqullanmadi</p>
+                                {% else %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-title-desc"></p>
+
+                <form method="POST"> {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {{form.journal}}
+                                <label for="floatingSelectGrid">Jurnalni tanlang. (Majburiy emas)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {{form.column}}
+                                <label for="floatingSelectGrid">Maqola ruknini tanlang. Majburiy !</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary w-md">Saqlash</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
